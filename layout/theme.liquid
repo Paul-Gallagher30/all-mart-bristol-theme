@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.brand_accent }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} · tagged {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} · Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} · {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {{ content_for_header }}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+    <style>
+      :root {
+        --page-width: 1240px;
+        --color-bg: {{ settings.brand_background }};
+        --color-surface: {{ settings.brand_surface }};
+        --color-text: {{ settings.brand_text }};
+        --color-muted: rgba(17, 24, 39, 0.72);
+        --color-accent: {{ settings.brand_accent }};
+        --color-accent-2: {{ settings.brand_accent_secondary }};
+        --color-border: rgba(17, 24, 39, 0.12);
+        --radius-sm: 10px;
+        --radius-md: 18px;
+        --radius-lg: 28px;
+        --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.08);
+        --section-space: {{ settings.section_spacing }}px;
+      }
+    </style>
+  </head>
+
+  <body class="template-{{ template.name | handle }}">
+    <a class="skip-to-content-link visually-hidden" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
+
+    {% section 'announcement-bar' %}
+
+    <header class="site-header">
+      <div class="container header__top-row">
+        <a class="header__brand" href="{{ routes.root_url }}">
+          {%- if settings.logo != blank -%}
+            {{ settings.logo | image_url: width: 220 | image_tag: widths: '90,140,180,220', alt: shop.name | escape, style: 'max-width: 190px; height: auto;' }}
+          {%- else -%}
+            <span class="header__brand-mark">AM</span>
+            <span class="header__brand-text">
+              <strong>{{ shop.name }}</strong>
+              <span>All Mart Bristol</span>
+            </span>
+          {%- endif -%}
+        </a>
+
+        <form class="header__search header__search--wide" action="{{ routes.search_url }}" method="get" role="search">
+          <label class="visually-hidden" for="HeaderSearch">Search</label>
+          <input id="HeaderSearch" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products, categories and offers">
+          <button class="button header__search-button" type="submit">Search</button>
+        </form>
+
+        <div class="header__actions">
+          <a class="header__icon-link" href="{{ routes.account_login_url }}" aria-label="Account">👤<span>Account</span></a>
+          <a class="header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart">🛒<span>Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</span></a>
+        </div>
+      </div>
+
+      <div class="header__nav-wrap">
+        <div class="container header__nav-row">
+          {%- if linklists['departments'] != blank and linklists['departments'].links.size > 0 -%}
+            <details class="departments-menu">
+              <summary>☰ Shop by category</summary>
+              <div class="departments-menu__panel card">
+                <div class="departments-menu__grid">
+                  {%- for link in linklists['departments'].links -%}
+                    <div class="departments-menu__column">
+                      <a class="departments-menu__heading" href="{{ link.url }}">{{ link.title }}</a>
+                      {%- if link.links != blank -%}
+                        <ul class="departments-menu__list" role="list">
+                          {%- for child_link in link.links -%}
+                            <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </details>
+          {%- endif -%}
+
+          <nav class="header__nav" aria-label="Primary">
+            {%- if linklists['main-menu'] != blank and linklists['main-menu'].links.size > 0 -%}
+              {%- for link in linklists['main-menu'].links -%}
+                <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a>
+              {%- endfor -%}
+            {%- else -%}
+              <a href="{{ routes.root_url }}">Home</a>
+              <a href="/collections/all">Shop All</a>
+              <a href="/pages/contact">Contact</a>
+            {%- endif -%}
+          </nav>
+
+          <div class="header__meta-links">
+            <a href="/pages/contact">Help &amp; support</a>
+            <span>Fast local shopping for Bristol</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+  </body>
+</html>
