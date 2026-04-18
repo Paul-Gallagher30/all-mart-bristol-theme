@@ -11,11 +11,11 @@
       <div class="category-directory__grid">
         {%- for link in section.settings.menu.links -%}
           <div class="category-directory__column card">
-            <a class="category-directory__title" href="{{ link.url }}">{{ link.title }}</a>
+            <a class="category-directory__title" href="{% if link.type == 'collection_link' and link.object != blank %}{{ link.object.url }}{% else %}{{ link.url }}{% endif %}">{{ link.title }}</a>
             {%- if link.links != blank -%}
               <ul class="category-directory__list" role="list">
                 {%- for child_link in link.links -%}
-                  <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                  <li><a href="{% if child_link.type == 'collection_link' and child_link.object != blank %}{{ child_link.object.url }}{% else %}{{ child_link.url }}{% endif %}">{{ child_link.title }}</a></li>
                 {%- endfor -%}
               </ul>
             {%- else -%}

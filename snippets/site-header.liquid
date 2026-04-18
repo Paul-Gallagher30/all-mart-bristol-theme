@@ -34,11 +34,11 @@
             <div class="departments-menu__grid">
               {%- for link in departments_menu.links -%}
                 <div class="departments-menu__column">
-                  <a class="departments-menu__heading" href="{{ link.url }}">{{ link.title }}</a>
+                  <a class="departments-menu__heading" href="{% if link.type == 'collection_link' and link.object != blank %}{{ link.object.url }}{% else %}{{ link.url }}{% endif %}">{{ link.title }}</a>
                   {%- if link.links != blank -%}
                     <ul class="departments-menu__list" role="list">
                       {%- for child_link in link.links -%}
-                        <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                        <li><a href="{% if child_link.type == 'collection_link' and child_link.object != blank %}{{ child_link.object.url }}{% else %}{{ child_link.url }}{% endif %}">{{ child_link.title }}</a></li>
                       {%- endfor -%}
                     </ul>
                   {%- endif -%}
