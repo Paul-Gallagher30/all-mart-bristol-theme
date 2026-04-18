@@ -14,31 +14,54 @@
 
     <form class="header__search header__search--wide" action="{{ routes.search_url }}" method="get" role="search">
       <label class="visually-hidden" for="HeaderSearch">Search</label>
-      <input id="HeaderSearch" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products, categories and offers">
+      <input
+        id="HeaderSearch"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="Search products, categories and offers"
+      >
       <button class="button header__search-button" type="submit">Search</button>
     </form>
 
     <div class="header__actions">
-      <a class="header__icon-link" href="{{ routes.account_login_url }}" aria-label="Account">👤<span>Account</span></a>
-      <a class="header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart">🛒<span>Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</span></a>
+      <a class="header__icon-link" href="{{ routes.account_login_url }}" aria-label="Account">
+        <span>Account</span>
+      </a>
+
+      <a class="header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart">
+        <span>Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</span>
+      </a>
     </div>
   </div>
 
   <div class="header__nav-wrap">
     <div class="container header__nav-row">
       {%- assign departments_menu = settings.departments_menu -%}
+
       {%- if departments_menu != blank and departments_menu.links.size > 0 -%}
         <details class="departments-menu">
           <summary>☰ {{ settings.departments_label | default: 'Shop by category' }}</summary>
+
           <div class="departments-menu__panel card">
             <div class="departments-menu__grid">
               {%- for link in departments_menu.links -%}
                 <div class="departments-menu__column">
-                  <a class="departments-menu__heading" href="{% if link.type == 'collection_link' and link.object != blank %}{{ link.object.url }}{% else %}{{ link.url }}{% endif %}">{{ link.title }}</a>
+                  <a
+                    class="departments-menu__heading"
+                    href="{% if link.type == 'collection_link' and link.object != blank %}{{ link.object.url }}{% else %}{{ link.url }}{% endif %}"
+                  >
+                    {{ link.title }}
+                  </a>
+
                   {%- if link.links != blank -%}
                     <ul class="departments-menu__list" role="list">
                       {%- for child_link in link.links -%}
-                        <li><a href="{% if child_link.type == 'collection_link' and child_link.object != blank %}{{ child_link.object.url }}{% else %}{{ child_link.url }}{% endif %}">{{ child_link.title }}</a></li>
+                        <li>
+                          <a href="{% if child_link.type == 'collection_link' and child_link.object != blank %}{{ child_link.object.url }}{% else %}{{ child_link.url }}{% endif %}">
+                            {{ child_link.title }}
+                          </a>
+                        </li>
                       {%- endfor -%}
                     </ul>
                   {%- endif -%}
@@ -50,22 +73,32 @@
       {%- endif -%}
 
       <nav class="header__nav" aria-label="Primary">
+        <a href="/pages/shop-by-category" {% if request.path == '/pages/shop-by-category' %}aria-current="page"{% endif %}>
+          Shop by category
+        </a>
+
         {%- assign header_menu = settings.header_menu -%}
+
         {%- if header_menu != blank and header_menu.links.size > 0 -%}
           {%- for link in header_menu.links -%}
-            <a href="{{ link.url }}" {% if request.path == link.url %}aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- unless link.title == 'Shop by category' -%}
+              <a href="{{ link.url }}" {% if request.path == link.url %}aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            {%- endunless -%}
           {%- endfor -%}
         {%- else -%}
-          <a href="{{ routes.root_url }}">Home</a>
-          <a href="/collections">Shop by category</a>
-          <a href="{{ routes.all_products_collection_url }}">Shop all</a>
-          <a href="/pages/contact">Contact</a>
+          <a href="{{ routes.root_url }}" {% if request.path == routes.root_url %}aria-current="page"{% endif %}>Home</a>
+          <a href="{{ routes.all_products_collection_url }}" {% if request.path == routes.all_products_collection_url %}aria-current="page"{% endif %}>Shop all</a>
+          <a href="/pages/contact" {% if request.path == '/pages/contact' %}aria-current="page"{% endif %}>Contact</a>
         {%- endif -%}
       </nav>
 
       <div class="header__meta-links">
         {%- if settings.show_help_link -%}
-          <a href="{% if settings.help_link != blank %}{{ settings.help_link }}{% else %}/pages/contact{% endif %}">{{ settings.help_link_text | default: 'Help & support' }}</a>
+          <a href="{% if settings.help_link != blank %}{{ settings.help_link }}{% else %}/pages/contact{% endif %}">
+            {{ settings.help_link_text | default: 'Help & support' }}
+          </a>
         {%- endif -%}
         <span>{{ settings.header_meta_text }}</span>
       </div>
