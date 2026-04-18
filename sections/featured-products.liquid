@@ -1,0 +1,43 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.heading }}</h2>
+    <p class="section-subtitle">{{ section.settings.subtext }}</p>
+
+    {%- assign featured_collection = collections[section.settings.collection] -%}
+    {%- if featured_collection != blank and featured_collection.products_count > 0 -%}
+      <div class="product-grid">
+        {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="product-grid">
+        {%- for i in (1..4) -%}
+          <article class="product-card card">
+            <div class="product-card__media">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+            <div class="product-card__content">
+              <p class="product-card__vendor">Featured</p>
+              <h3 class="product-card__title">Assign a collection to show products</h3>
+              <div class="price"><span>£0.00</span></div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bestsellers and fast movers" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Point this section to your strongest collection to create a homepage bestsellers block." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "default": 4, "min": 2, "max": 8, "step": 1 }
+  ],
+  "presets": [
+    { "name": "Featured products" }
+  ]
+}
+{% endschema %}

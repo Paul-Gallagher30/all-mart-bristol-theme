@@ -1,0 +1,28 @@
+<article class="collection-card card">
+  {%- if collection.featured_image != blank -%}
+    <div class="collection-card__image">
+      {{ collection.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '320, 480, 720, 960, 1200', sizes: '(min-width: 990px) 25vw, 50vw', alt: collection.title | escape }}
+    </div>
+  {%- elsif collection.products.first.featured_image != blank -%}
+    <div class="collection-card__image">
+      {{ collection.products.first.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '320, 480, 720, 960, 1200', sizes: '(min-width: 990px) 25vw, 50vw', alt: collection.title | escape }}
+    </div>
+  {%- else -%}
+    <div class="collection-card__image collection-card__image--placeholder">
+      {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+  <div class="collection-card__content">
+    <span class="collection-card__count">{{ collection.products_count }} item{% if collection.products_count != 1 %}s{% endif %}</span>
+    <h3>{{ collection.title }}</h3>
+    <p>
+      {%- if collection.description != blank -%}
+        {{ collection.description | strip_html | truncate: 90 }}
+      {%- else -%}
+        Explore {{ collection.products_count }} product{% if collection.products_count != 1 %}s{% endif %}.
+      {%- endif -%}
+    </p>
+    <span class="badge">Shop category</span>
+  </div>
+  <a class="visually-hidden" href="{{ collection.url }}">{{ collection.title }}</a>
+</article>
