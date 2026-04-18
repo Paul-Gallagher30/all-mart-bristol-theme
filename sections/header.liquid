@@ -1,0 +1,41 @@
+<header class="site-header">
+  <div class="container header__row">
+    <a class="header__brand" href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        {{ settings.logo | image_url: width: 180 | image_tag: widths: '80,120,180', alt: shop.name | escape, style: 'max-width: 160px; height: auto;' }}
+      {%- else -%}
+        <span class="header__brand-mark">AM</span>
+        <span class="header__brand-text">
+          <strong>{{ shop.name }}</strong>
+          <span>{{ section.settings.brand_tagline }}</span>
+        </span>
+      {%- endif -%}
+    </a>
+
+    <nav class="header__nav" aria-label="Primary">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="header__actions">
+      <form class="header__search" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="visually-hidden" for="HeaderSearch">Search</label>
+        <input id="HeaderSearch" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search essentials, snacks, home...">
+        <button class="button" type="submit">Search</button>
+      </form>
+      <a class="header__icon-link" href="{{ routes.account_login_url }}" aria-label="Account">👤</a>
+      <a class="header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart">🛒{% if cart.item_count > 0 %} <span>({{ cart.item_count }})</span>{% endif %}</a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "brand_tagline", "label": "Brand tagline", "default": "Everyday value for Bristol" }
+  ]
+}
+{% endschema %}

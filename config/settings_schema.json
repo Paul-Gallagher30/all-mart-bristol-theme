@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "checkbox", "id": "show_vendor", "label": "Show product vendor", "default": false },
+      { "type": "range", "id": "section_spacing", "label": "Section spacing", "min": 40, "max": 120, "step": 4, "default": 72 },
+      { "type": "color", "id": "brand_background", "label": "Background", "default": "#F8FAFC" },
+      { "type": "color", "id": "brand_surface", "label": "Surface", "default": "#FFFFFF" },
+      { "type": "color", "id": "brand_text", "label": "Text", "default": "#0F172A" },
+      { "type": "color", "id": "brand_accent", "label": "Primary accent", "default": "#1B9C5A" },
+      { "type": "color", "id": "brand_accent_secondary", "label": "Secondary accent", "default": "#F59E0B" }
+    ]
+  }
+]

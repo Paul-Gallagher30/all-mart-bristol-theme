@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "hero": { "type": "hero-banner", "settings": {} },
+    "trust": { "type": "trust-bar", "settings": {} },
+    "collections": { "type": "featured-collections", "settings": {} },
+    "products": { "type": "featured-products", "settings": {} },
+    "story": { "type": "image-with-text", "settings": {} },
+    "newsletter": { "type": "newsletter", "settings": {} }
+  },
+  "order": ["hero", "trust", "collections", "products", "story", "newsletter"]
+}
