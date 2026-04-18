@@ -10,7 +10,29 @@
       { "type": "color", "id": "brand_surface", "label": "Surface", "default": "#FFFFFF" },
       { "type": "color", "id": "brand_text", "label": "Text", "default": "#0F172A" },
       { "type": "color", "id": "brand_accent", "label": "Primary accent", "default": "#1B9C5A" },
-      { "type": "color", "id": "brand_accent_secondary", "label": "Secondary accent", "default": "#F59E0B" }
+      { "type": "color", "id": "brand_accent_secondary", "label": "Secondary accent", "default": "#F59E0B" },
+      { "type": "header", "content": "Header branding" },
+      { "type": "text", "id": "brand_tagline", "label": "Brand tagline", "default": "All Mart Bristol" },
+      { "type": "text", "id": "departments_label", "label": "Departments button label", "default": "Shop by category" },
+      { "type": "text", "id": "departments_menu_handle", "label": "Departments menu handle", "default": "departments", "info": "Create a menu in Online Store > Navigation and enter its handle here. Example: departments" },
+      { "type": "checkbox", "id": "show_help_link", "label": "Show help link", "default": true },
+      { "type": "text", "id": "help_link_text", "label": "Help link text", "default": "Help & support" },
+      { "type": "url", "id": "help_link", "label": "Help link URL" },
+      { "type": "text", "id": "header_meta_text", "label": "Header meta text", "default": "Fast local shopping for Bristol" },
+      { "type": "header", "content": "Top menu links" },
+      { "type": "paragraph", "content": "Edit the top navigation links here. Leave a URL blank to use the built-in fallback for that slot." },
+      { "type": "text", "id": "nav_1_label", "label": "Link 1 label", "default": "Home" },
+      { "type": "url", "id": "nav_1_url", "label": "Link 1 URL" },
+      { "type": "text", "id": "nav_2_label", "label": "Link 2 label", "default": "Shop by category" },
+      { "type": "url", "id": "nav_2_url", "label": "Link 2 URL" },
+      { "type": "text", "id": "nav_3_label", "label": "Link 3 label", "default": "Shop all" },
+      { "type": "url", "id": "nav_3_url", "label": "Link 3 URL" },
+      { "type": "text", "id": "nav_4_label", "label": "Link 4 label", "default": "Contact" },
+      { "type": "url", "id": "nav_4_url", "label": "Link 4 URL" },
+      { "type": "text", "id": "nav_5_label", "label": "Link 5 label", "default": "" },
+      { "type": "url", "id": "nav_5_url", "label": "Link 5 URL" },
+      { "type": "text", "id": "nav_6_label", "label": "Link 6 label", "default": "" },
+      { "type": "url", "id": "nav_6_url", "label": "Link 6 URL" }
     ]
   }
 ]
