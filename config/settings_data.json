@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "show_vendor": false,
@@ -8,6 +17,29 @@
     "brand_accent": "#1B9C5A",
     "brand_accent_secondary": "#F59E0B",
     "header_menu": "main-menu",
-    "departments_menu": "main-menu"
+    "departments_menu": "sidebar",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "text": "Fast delivery, local favourites, and everyday essentials from All Mart Bristol.",
+          "link_text": "Browse collections",
+          "link": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_text": "All Mart Bristol is designed as a clean, modern storefront for everyday essentials, home picks, pantry staples, and value-driven shopping.",
+          "menu_heading": "Quick links",
+          "menu": "footer",
+          "location_text": "Bristol, United Kingdom",
+          "contact_text": "Email, WhatsApp, or phone details can be added here",
+          "hours_text": "Open daily — update with your real timings"
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
