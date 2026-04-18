@@ -13,7 +13,7 @@
     <div class="departments-grid">
       {%- for block in section.blocks -%}
         {%- assign category_collection = collections[block.settings.collection] -%}
-        <a class="department-card card" href="{% if category_collection != blank %}{{ category_collection.url }}{% elsif block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}" {{ block.shopify_attributes }}>
+        <a class="department-card card" href="{% if category_collection != blank %}{{ category_collection.url }}{% elsif block.settings.link != blank %}{{ block.settings.link }}{% else %}/collections{% endif %}" {{ block.shopify_attributes }}>
           <div class="department-card__media">
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 900 | image_tag: widths: '300,450,700,900', sizes: '(min-width: 990px) 16vw, 48vw', alt: block.settings.title | escape }}

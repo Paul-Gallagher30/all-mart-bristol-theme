@@ -1,4 +1,4 @@
-<article class="collection-card card">
+<a class="collection-card card" href="{{ collection.url }}">
   {%- if collection.featured_image != blank -%}
     <div class="collection-card__image">
       {{ collection.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '320, 480, 720, 960, 1200', sizes: '(min-width: 990px) 25vw, 50vw', alt: collection.title | escape }}
@@ -24,5 +24,4 @@
     </p>
     <span class="badge">Shop category</span>
   </div>
-  <a class="visually-hidden" href="{{ collection.url }}">{{ collection.title }}</a>
-</article>
+</a>

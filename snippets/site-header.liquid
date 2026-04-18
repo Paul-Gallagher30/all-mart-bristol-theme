@@ -26,13 +26,13 @@
 
   <div class="header__nav-wrap">
     <div class="container header__nav-row">
-      {%- assign departments_handle = settings.departments_menu_handle | strip -%}
-      {%- if departments_handle != blank and linklists[departments_handle] != blank and linklists[departments_handle].links.size > 0 -%}
+      {%- assign departments_menu = settings.departments_menu -%}
+      {%- if departments_menu != blank and departments_menu.links.size > 0 -%}
         <details class="departments-menu">
           <summary>☰ {{ settings.departments_label | default: 'Shop by category' }}</summary>
           <div class="departments-menu__panel card">
             <div class="departments-menu__grid">
-              {%- for link in linklists[departments_handle].links -%}
+              {%- for link in departments_menu.links -%}
                 <div class="departments-menu__column">
                   <a class="departments-menu__heading" href="{{ link.url }}">{{ link.title }}</a>
                   {%- if link.links != blank -%}
@@ -50,38 +50,12 @@
       {%- endif -%}
 
       <nav class="header__nav" aria-label="Primary">
-        {%- assign nav_items_rendered = 0 -%}
-        {%- for i in (1..6) -%}
-          {%- liquid
-            assign label_key = 'nav_' | append: i | append: '_label'
-            assign url_key = 'nav_' | append: i | append: '_url'
-            assign nav_label = settings[label_key]
-            assign nav_url = settings[url_key]
-
-            if nav_label == blank
-              continue
-            endif
-
-            if nav_url == blank
-              case i
-                when 1
-                  assign nav_url = routes.root_url
-                when 2
-                  assign nav_url = '/collections'
-                when 3
-                  assign nav_url = routes.all_products_collection_url
-                when 4
-                  assign nav_url = '/pages/contact'
-                else
-                  assign nav_url = routes.root_url
-              endcase
-            endif
-          -%}
-          {%- assign nav_items_rendered = nav_items_rendered | plus: 1 -%}
-          <a href="{{ nav_url }}" {% if request.path == nav_url %}aria-current="page"{% endif %}>{{ nav_label }}</a>
-        {%- endfor -%}
-
-        {%- if nav_items_rendered == 0 -%}
+        {%- assign header_menu = settings.header_menu -%}
+        {%- if header_menu != blank and header_menu.links.size > 0 -%}
+          {%- for link in header_menu.links -%}
+            <a href="{{ link.url }}" {% if request.path == link.url %}aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- endfor -%}
+        {%- else -%}
           <a href="{{ routes.root_url }}">Home</a>
           <a href="/collections">Shop by category</a>
           <a href="{{ routes.all_products_collection_url }}">Shop all</a>

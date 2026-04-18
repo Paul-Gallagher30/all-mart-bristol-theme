@@ -6,6 +6,8 @@
     "brand_surface": "#FFFFFF",
     "brand_text": "#0F172A",
     "brand_accent": "#1B9C5A",
-    "brand_accent_secondary": "#F59E0B"
+    "brand_accent_secondary": "#F59E0B",
+    "header_menu": "main-menu",
+    "departments_menu": "main-menu"
   }
 }

@@ -6,13 +6,13 @@
         <h1 class="marketplace-hero__title">{{ section.settings.heading }}</h1>
         <p class="marketplace-hero__text">{{ section.settings.text }}</p>
         <div class="hero__actions">
-          <a class="button" href="{{ section.settings.primary_link | default: routes.all_products_collection_url }}">{{ section.settings.primary_label }}</a>
+          <a class="button" href="{{ section.settings.primary_link | default: '/collections/all' }}">{{ section.settings.primary_label }}</a>
           <a class="button button--secondary" href="{{ section.settings.secondary_link | default: '/collections' }}">{{ section.settings.secondary_label }}</a>
         </div>
         {%- if section.blocks.size > 0 -%}
           <div class="marketplace-hero__chips">
             {%- for block in section.blocks -%}
-              <a href="{{ block.settings.link | default: '#' }}" class="marketplace-chip" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+              <a href="{{ block.settings.link | default: '/collections' }}" class="marketplace-chip" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
             {%- endfor -%}
           </div>
         {%- endif -%}
@@ -34,7 +34,7 @@
           assign label_key = 'promo_label_' | append: i
           assign link_key = 'promo_link_' | append: i
         -%}
-        <a class="promo-tile card" href="{{ section.settings[link_key] | default: routes.all_products_collection_url }}">
+        <a class="promo-tile card" href="{{ section.settings[link_key] | default: '/collections' }}">
           <span class="promo-tile__eyebrow">Featured</span>
           <h3>{{ section.settings[title_key] }}</h3>
           <p>{{ section.settings[text_key] }}</p>
