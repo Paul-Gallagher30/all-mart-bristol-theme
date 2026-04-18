@@ -1,0 +1,40 @@
+<section class="section contact-form-section">
+  <div class="container page-content">
+    <h2 class="section-title">{{ section.settings.heading }}</h2>
+    <p class="section-subtitle">{{ section.settings.subtext }}</p>
+
+    {%- form 'contact', class: 'card', style: 'padding:1.2rem;' -%}
+      {%- if form.posted_successfully? -%}
+        <p>Thanks for getting in touch. We’ll come back to you soon.</p>
+      {%- endif -%}
+      {{ form.errors | default_errors }}
+      <div class="form-grid">
+        <div class="field">
+          <label for="ContactFormName">Name</label>
+          <input id="ContactFormName" type="text" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+        </div>
+        <div class="field">
+          <label for="ContactFormEmail">Email</label>
+          <input id="ContactFormEmail" type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+        </div>
+        <div class="field field--full">
+          <label for="ContactFormMessage">Message</label>
+          <textarea id="ContactFormMessage" name="contact[body]" rows="8">{{ form.body }}</textarea>
+        </div>
+      </div>
+      <div style="margin-top:1rem;">
+        <button class="button" type="submit">Send message</button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Contact All Mart Bristol" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Use this page for enquiries, bulk orders, support, or store information." }
+  ]
+}
+{% endschema %}
