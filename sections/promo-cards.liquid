@@ -1,0 +1,44 @@
+<section class="section section--tight">
+  <div class="container">
+    <div class="promo-cards-grid">
+      {%- for block in section.blocks -%}
+        <a class="promo-card card" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <span class="promo-card__eyebrow">{{ block.settings.eyebrow }}</span>
+          <h3>{{ block.settings.heading }}</h3>
+          <p>{{ block.settings.text }}</p>
+          <span class="promo-card__cta">{{ block.settings.label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo cards",
+  "blocks": [
+    {
+      "type": "promo",
+      "name": "Promo",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Deal spotlight" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Weekly saver picks" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Use this card for price-led campaigns, bundles, or seasonal pushes." },
+        { "type": "text", "id": "label", "label": "CTA label", "default": "Browse" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Promo cards",
+      "blocks": [
+        { "type": "promo", "settings": { "heading": "Weekly saver picks" } },
+        { "type": "promo", "settings": { "heading": "Bundle & save" } },
+        { "type": "promo", "settings": { "heading": "New arrivals" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "hero": {
+      "type": "marketplace-hero",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-bar",
+      "settings": {}
+    },
+    "departments": {
+      "type": "departments-grid",
+      "settings": {}
+    },
+    "promos": {
+      "type": "promo-cards",
+      "settings": {}
+    },
+    "collections": {
+      "type": "featured-collections",
+      "settings": {
+        "heading": "Top collections",
+        "subtext": "Highlight your strongest categories, then use the department grid above to cover the wider catalogue."
+      }
+    },
+    "products": {
+      "type": "featured-products",
+      "settings": {}
+    },
+    "directory": {
+      "type": "category-directory",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "departments",
+    "promos",
+    "collections",
+    "products",
+    "directory",
+    "newsletter"
+  ]
+}

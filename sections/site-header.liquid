@@ -1,0 +1,83 @@
+<header class="site-header">
+  <div class="container header__top-row">
+    <a class="header__brand" href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        {{ settings.logo | image_url: width: 220 | image_tag: widths: '90,140,180,220', alt: shop.name | escape, style: 'max-width: 190px; height: auto;' }}
+      {%- else -%}
+        <span class="header__brand-mark">AM</span>
+        <span class="header__brand-text">
+          <strong>{{ shop.name }}</strong>
+          <span>{{ section.settings.brand_tagline }}</span>
+        </span>
+      {%- endif -%}
+    </a>
+
+    <form class="header__search header__search--wide" action="{{ routes.search_url }}" method="get" role="search">
+      <label class="visually-hidden" for="HeaderSearch">Search</label>
+      <input id="HeaderSearch" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search groceries, home, personal care, gifts...">
+      <button class="button header__search-button" type="submit">Search</button>
+    </form>
+
+    <div class="header__actions">
+      <a class="header__icon-link" href="{{ routes.account_login_url }}" aria-label="Account">👤<span>Account</span></a>
+      <a class="header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart">🛒<span>Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</span></a>
+    </div>
+  </div>
+
+  <div class="header__nav-wrap">
+    <div class="container header__nav-row">
+      {%- assign departments_menu_handle = section.settings.departments_menu_handle | strip -%}
+      {%- if departments_menu_handle != blank and linklists[departments_menu_handle] != blank -%}
+        <details class="departments-menu">
+          <summary>☰ {{ section.settings.departments_label }}</summary>
+          <div class="departments-menu__panel card">
+            <div class="departments-menu__grid">
+              {%- for link in linklists[departments_menu_handle].links -%}
+                <div class="departments-menu__column">
+                  <a class="departments-menu__heading" href="{{ link.url }}">{{ link.title }}</a>
+                  {%- if link.links != blank -%}
+                    <ul class="departments-menu__list" role="list">
+                      {%- for child_link in link.links -%}
+                        <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </details>
+      {%- endif -%}
+
+      <nav class="header__nav" aria-label="Primary">
+        {%- if section.settings.menu != blank and linklists[section.settings.menu] != blank -%}
+          {%- for link in linklists[section.settings.menu].links -%}
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- endfor -%}
+        {%- endif -%}
+      </nav>
+
+      <div class="header__meta-links">
+        {%- if section.settings.show_help_link -%}
+          <a href="{% if section.settings.help_link != blank %}{{ section.settings.help_link }}{% else %}/pages/contact{% endif %}">Help & support</a>
+        {%- endif -%}
+        <span>{{ section.settings.meta_text }}</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Primary menu", "default": "main-menu" },
+    { "type": "text", "id": "departments_menu_handle", "label": "Departments menu handle", "default": "departments", "info": "Enter the Shopify menu handle, for example: departments" },
+    { "type": "text", "id": "departments_label", "label": "Departments label", "default": "Shop by category" },
+    { "type": "text", "id": "brand_tagline", "label": "Brand tagline", "default": "Everyday essentials, snacks and more" },
+    { "type": "checkbox", "id": "show_help_link", "label": "Show help link", "default": true },
+    { "type": "url", "id": "help_link", "label": "Help link" },
+    { "type": "text", "id": "meta_text", "label": "Right-side text", "default": "Fast local shopping for Bristol" }
+  ]
+}
+{% endschema %}

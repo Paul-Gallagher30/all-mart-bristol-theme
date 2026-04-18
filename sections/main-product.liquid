@@ -1,0 +1,64 @@
+<section class="section">
+  <div class="container">
+    <div class="main-product__wrap">
+      <div class="main-product__media card">
+        {%- if product.featured_image != blank -%}
+          {{ product.featured_image | image_url: width: 1600 | image_tag: loading: 'eager', widths: '540,720,960,1200,1600', sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title | escape }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="main-product__details card">
+        {%- if settings.show_vendor and product.vendor != blank -%}
+          <p class="product-card__vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+        <h1 class="section-title">{{ product.title }}</h1>
+        {% render 'price', product_or_variant: product.selected_or_first_available_variant %}
+
+        {%- if product.description != blank -%}
+          <div class="section-subtitle rte">{{ product.description }}</div>
+        {%- endif -%}
+
+        {%- form 'product', product -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <div class="product-form__row">
+            <label for="Quantity-{{ section.id }}">Quantity</label><br>
+            <input id="Quantity-{{ section.id }}" class="product-form__quantity" type="number" name="quantity" min="1" value="1">
+          </div>
+          <div class="product-form__row">
+            <button class="button" type="submit" {% unless product.available %}disabled{% endunless %}>
+              {% if product.available %}Add to cart{% else %}Sold out{% endif %}
+            </button>
+          </div>
+        {%- endform -%}
+
+        <div class="product-accordion">
+          <details open>
+            <summary>Why it fits this store</summary>
+            <div><p>{{ section.settings.why_it_fits }}</p></div>
+          </details>
+          <details>
+            <summary>Delivery and fulfilment</summary>
+            <div><p>{{ section.settings.delivery_text }}</p></div>
+          </details>
+          <details>
+            <summary>Returns and support</summary>
+            <div><p>{{ section.settings.support_text }}</p></div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    { "type": "textarea", "id": "why_it_fits", "label": "Why it fits", "default": "Use this area to reinforce value, convenience, quality, or bundle logic relevant to the product." },
+    { "type": "textarea", "id": "delivery_text", "label": "Delivery text", "default": "Replace this with your actual delivery, local fulfilment, or shipping policy details." },
+    { "type": "textarea", "id": "support_text", "label": "Support text", "default": "Replace this with your actual returns, support, or customer service policy." }
+  ]
+}
+{% endschema %}
